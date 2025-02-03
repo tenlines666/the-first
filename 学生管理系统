@@ -1,0 +1,101 @@
+class_all = []
+
+
+def print_menu():
+    print('-------------------------')
+    print('1:添加学生信息')
+    print('2:查找学生信息')
+    print('3:修改学生信息')
+    print('4:删除学生信息')
+    print('5:显示所有学生信息')
+    print('6:保存学生信息')
+    print('7:从文件中读取学生信息')
+    print('-------------------------')
+
+
+def add_student():
+    global class_all
+    print('正在使用学生添加功能')
+    name = input('输入学生的姓名')
+    xuehao = input('输入学生的学号')
+    chengji = input('输入学生的成绩')
+
+    for student in class_all:
+        if student['xuehao'] == xuehao:
+            print("学号重复，请重新输入")
+            return
+    
+    student = {'name':name,
+               'xuehao':xuehao,
+               'chengji':chengji}
+    
+    class_all.append(student)
+    print('添加学生信息成功')
+    print(class_all)
+
+
+def search_student():
+    global class_all
+    daihao = input('请输入您要查找的学生的姓名或学号')
+    for student in class_all:
+        if student['name'] == daihao or student['xuehao'] == daihao:
+            print('姓名:%s,学号:%s,成绩:%s'%(student['name'],student['xuehao'],student['chengji']))
+            return
+    print('没有找到您输入的学生')
+
+
+def update_student():
+    global class_all
+    xuehao = input('请输入要修改的学生学号:')
+    for student in class_all:
+        if student['xuehao'] == xuehao:
+            student['name'] = input('请输入修改后学生姓名')
+            student['xuehao'] = input('请输入修改后学生学号')
+            student['chengji'] = input('请输入修改后学生成绩')
+            print('修改学生信息成功')
+            return
+    print('您输入的学生不存在')    
+
+
+def del_student():
+    print('正在使用学生删除功能')
+    global class_all
+    xuehao = input('请输入删除的学生学号:')
+    for student in class_all:
+        if student['xuehao'] == xuehao:
+            class_all.remove(student)
+            print('删除学生信息成功')
+            return
+    print('您输入的学生不存在')    
+    
+
+def show_student():
+    print('姓名----学号-成绩')
+    for student in class_all:
+        print(student['name'],student['xuehao'],student['chengji'])
+
+
+def save_student():
+    with open('students.txt','w',encoding='utf-8') as f:
+        f.write(str(class_all))
+
+def main():
+    while True:
+        print_menu()
+        choose = int(input('请输入您需要的功能'))
+        if choose == 1:
+            add_student()
+        elif choose == 2:
+            search_student()
+        elif choose == 3:
+            update_student()
+        elif choose == 4:
+            del_student()
+        elif choose == 5:
+            show_student()
+        elif choose == 6:
+            save_student()
+
+
+if __name__ == '__main__':
+    main()         
