@@ -1,0 +1,17 @@
+
+train: Mydata/images/train
+val: Mydata/images/train
+
+
+
+
+# Classes
+names:
+  0: banana
+  1: watermelon
+  2: apple
+
+
+
+
+
